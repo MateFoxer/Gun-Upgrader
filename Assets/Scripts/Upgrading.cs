@@ -1,21 +1,17 @@
 using UnityEngine;
 
-public class GunStats : MonoBehaviour
+public class Upgrading : MonoBehaviour
 {
-    public int damage = 1;
-    public float fireRate = 1f;
+    public Shooting gunScript;  // Assign the gun's AutomaticShooting script in the Inspector
 
-    public void Upgrade()
+    void OnCollisionEnter(Collision collision)
     {
-        damage += 1;
-        fireRate += 0.1f;
-        Debug.Log("Gun Upgraded! Damage: " + damage + ", Fire Rate: " + fireRate);
-    }
-
-    public void Downgrade()
-    {
-        damage -= 1;
-        fireRate -= 0.1f;
-        Debug.Log("Gun Downgraded! Damage: " + damage + ", Fire Rate: " + fireRate);
+        // Check if the object colliding with the wall is the player or the gun
+        if (collision.gameObject.CompareTag("Bullet"))  
+        {
+            // Upgrade the gun when the wall is hit
+            gunScript.UpgradeGun();
+            Debug.Log("Gun upgraded! Bullets to shoot: " + gunScript.bulletsToShoot);
+        }
     }
 }
