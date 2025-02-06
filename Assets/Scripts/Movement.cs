@@ -2,21 +2,24 @@ using UnityEngine;
 
 public class GunMovement : MonoBehaviour
 {
-    public float moveSpeed = 2f;
-    public float moveRange = 2f;
-
-
-    private Vector3 startPosition;
-
-    void Start()
-    {
-        startPosition = transform.position;
-    }
+    public float moveSpeed = 10f; // Speed at which the gun moves
+    public float leftBoundary = -2f; // Leftmost position
+    public float rightBoundary = 2f; // Rightmost position
 
     void Update()
     {
-        // Move the gun back and forth
-        float newX = startPosition.x + Mathf.PingPong(Time.time * moveSpeed, moveRange * 2) - moveRange;
-        transform.position = new Vector3(newX, startPosition.y, startPosition.z);
+        // Get input from the A and D keys
+        float moveInput = Input.GetAxis("Horizontal");
+
+        // Calculate the movement direction
+        Vector3 movement = new Vector3(moveInput, 0, 0) * moveSpeed * Time.deltaTime;
+
+        // Move the gun left or right
+        transform.Translate(movement);
+
+        // Clamp the gun's position to the boundaries
+        Vector3 clampedPosition = transform.position;
+        clampedPosition.x = Mathf.Clamp(clampedPosition.x, leftBoundary, rightBoundary);
+        transform.position = clampedPosition;
     }
 }
