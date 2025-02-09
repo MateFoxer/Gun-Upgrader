@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    public float lifetime = 5f; // Time before the bullet is destroyed (if it doesn't hit anything)
+    public float lifetime = 3f; // Time before the bullet is destroyed (if it doesn't hit anything)
 
     void Start()
     {
